@@ -16,7 +16,9 @@ This program continuously sets the currently active IME to the Korean IME so you
 
 ## Installation
 
-You can build the program yourself using `cargo build --release`, or grab a prebuilt from GitHub Releases.
+You can build the program yourself using `cargo build --release`, or grab a prebuilt from GitHub Releases. (For convenience's sake, [the latest release can be downloaded here][latest-exe].)
+
+[latest-exe]: https://github.com/ericswpark/korstick/releases/latest/download/korstick.exe
 
 Place the program wherever you'd like, then launch it. A tray menu icon will show, which you can use to quit the program.
 
