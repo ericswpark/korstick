@@ -10,3 +10,11 @@ ctrlc = "3.4.4"
 trayicon = "0.2.0"
 winapi = { version = "0.3.9", features = ["winuser"] }
 winit = "0.30.3"
+
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = true
