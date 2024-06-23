@@ -27,3 +27,7 @@ To have this program run at startup, open the Run dialog (Windows+R), type `shel
 ### Why not a Windows service? Why another tray icon?
 
 Unfortunately, you cannot use `PostMessage` or any other Windows API functions that interact with the user session as a Windows service, starting from Windows Vista. There are workarounds, but Microsoft does not recommend using them.
+
+### The program doesn't work for me. / I'd like to see the debug output.
+
+Recompile with the `#![windows_subsystem = "windows"]` line at the top of `src/main.rs` removed.
