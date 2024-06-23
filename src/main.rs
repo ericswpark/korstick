@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 extern crate ctrlc;
 extern crate winapi;
 
