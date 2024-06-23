@@ -7,4 +7,6 @@ edition = "2021"
 
 [dependencies]
 ctrlc = "3.4.4"
+trayicon = "0.2.0"
 winapi = { version = "0.3.9", features = ["winuser"] }
+winit = "0.30.3"
