@@ -1,6 +1,14 @@
 # korstick
 
+<div align="center">
+
+[한국어][korean-translation]
+
+</div>
+
 A program to continuously and forcibly set the Windows IME to the Korean IME.
+
+[korean-translation]: README.ko.md
 
 ## Why?
 
