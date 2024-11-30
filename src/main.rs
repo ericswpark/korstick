@@ -74,26 +74,28 @@ fn main() {
 fn switch_to_korean_layout() {
     unsafe {
         let hwnd = GetForegroundWindow();
-        if !hwnd.is_null() {
-            let new_layout: *mut winapi::shared::minwindef::HKL__ = LoadKeyboardLayoutW(
-                to_wide_string(KOREAN_IME_LAYOUT_ID).as_ptr(),
-                KLF_ACTIVATE | KLF_SUBSTITUTE_OK | KLF_SETFORPROCESS,
-            );
-
-            if new_layout.is_null() {
-                eprintln!("Failed to load the Korean IME layout.");
-            } else {
-                if is_window_layout_korean(hwnd) {
-                    println!("The current layout is already Korean IME.");
-                    return;
-                }
-
-                SendMessageW(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, new_layout as LPARAM);
-                println!("Switched to the Korean IME layout.");
-            }
-        } else {
+        if hwnd.is_null() {
             eprintln!("Unable to fetch the current window!");
+            return;
         }
+
+        let new_layout: *mut winapi::shared::minwindef::HKL__ = LoadKeyboardLayoutW(
+            to_wide_string(KOREAN_IME_LAYOUT_ID).as_ptr(),
+            KLF_ACTIVATE | KLF_SUBSTITUTE_OK | KLF_SETFORPROCESS,
+        );
+
+        if new_layout.is_null() {
+            eprintln!("Failed to load the Korean IME layout.");
+            return;
+        }
+
+        if is_window_layout_korean(hwnd) {
+            println!("The current layout is already Korean IME.");
+            return;
+        }
+
+        SendMessageW(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, new_layout as LPARAM);
+        println!("Switched to the Korean IME layout.");
     }
 }
 
