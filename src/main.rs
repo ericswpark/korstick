@@ -8,9 +8,9 @@ use std::os::windows::ffi::OsStrExt;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
 use std::time::Duration;
-use winapi::shared::minwindef::LPARAM;
+use winapi::shared::minwindef::{DWORD, LPARAM};
 use winapi::um::winuser::{
-    GetForegroundWindow, LoadKeyboardLayoutW, SendMessageW, KLF_ACTIVATE, KLF_SETFORPROCESS,
+    GetForegroundWindow, GetKeyboardLayout, GetWindowThreadProcessId, LoadKeyboardLayoutW, SendMessageW, KLF_ACTIVATE, KLF_SETFORPROCESS,
     KLF_SUBSTITUTE_OK, WM_INPUTLANGCHANGEREQUEST,
 };
 
@@ -75,7 +75,7 @@ fn switch_to_korean_layout() {
     unsafe {
         let hwnd = GetForegroundWindow();
         if !hwnd.is_null() {
-            let new_layout = LoadKeyboardLayoutW(
+            let new_layout: *mut winapi::shared::minwindef::HKL__ = LoadKeyboardLayoutW(
                 to_wide_string(KOREAN_IME_LAYOUT_ID).as_ptr(),
                 KLF_ACTIVATE | KLF_SUBSTITUTE_OK | KLF_SETFORPROCESS,
             );
@@ -83,11 +83,30 @@ fn switch_to_korean_layout() {
             if new_layout.is_null() {
                 eprintln!("Failed to load the Korean IME layout.");
             } else {
+                if is_window_layout_korean(hwnd) {
+                    println!("The current layout is already Korean IME.");
+                    return;
+                }
+
                 SendMessageW(hwnd, WM_INPUTLANGCHANGEREQUEST, 0, new_layout as LPARAM);
                 println!("Switched to the Korean IME layout.");
             }
         } else {
             eprintln!("Unable to fetch the current window!");
+        }
+    }
+}
+
+fn is_window_layout_korean(hwnd: winapi::shared::windef::HWND) -> bool {
+    unsafe {
+        let thread_id = GetWindowThreadProcessId(hwnd, std::ptr::null_mut());
+        let layout = GetKeyboardLayout(thread_id);
+        let layout_id = layout as u32 & 0xFFFF;
+        
+        if layout_id == 0x0412 {
+            return true;
+        } else {
+            return false;
         }
     }
 }
