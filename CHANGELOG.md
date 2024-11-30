@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog][keep-a-changelog].
 
 # [Unreleased]
 
-[Unreleased]: https://github.com/ericswpark/korstick/compare/0.1.2...HEAD
+[Unreleased]: https://github.com/ericswpark/korstick/compare/0.2.0...HEAD
+
+# [0.2.0] - 2024-11-30
+
+- Only switch to Korean IME if it is not the currently selected layout (#2) (@hahagu)
+
+[0.2.0]: https://github.com/ericswpark/korstick/compare/0.1.2...0.2.0
 
 # [0.1.2] - 2024-06-23
 
