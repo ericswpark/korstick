@@ -8,7 +8,7 @@ use std::os::windows::ffi::OsStrExt;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::thread;
 use std::time::Duration;
-use winapi::shared::minwindef::{DWORD, LPARAM};
+use winapi::shared::minwindef::LPARAM;
 use winapi::um::winuser::{
     GetForegroundWindow, GetKeyboardLayout, GetWindowThreadProcessId, LoadKeyboardLayoutW, SendMessageW, KLF_ACTIVATE, KLF_SETFORPROCESS,
     KLF_SUBSTITUTE_OK, WM_INPUTLANGCHANGEREQUEST,
